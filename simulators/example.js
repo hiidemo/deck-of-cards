@@ -39,9 +39,8 @@ var acesClicked = []
 var kingsClicked = []
 
 deck.cards.forEach(function (card, i) {
-  // card.enableDragging()
-  // card.enableFlipping()
-  card.enableClicking();
+  card.enableDragging()
+  card.enableFlipping()
 
   card.$el.addEventListener('mousedown', onTouch)
   card.$el.addEventListener('touchstart', onTouch)

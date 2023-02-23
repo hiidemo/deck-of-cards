@@ -30,16 +30,17 @@
   },
   "homepage": "https://github.com/pakastin/deck-of-cards#readme",
   "devDependencies": {
-    "babel": "^5.8.23",
-    "chokidar": "^1.0.5",
-    "jade": "^1.11.0",
-    "nib": "^1.1.0",
-    "rollup": "^0.16.4",
-    "stylus": "^0.52.0",
-    "uglify-js": "^2.4.24"
+    "babel-cli": "^6.26.0",
+    "chokidar": "^3.5.3",
+    "jade": "^0.29.0",
+    "nib": "^1.2.0",
+    "rollup": "^3.17.2",
+    "stylus": "^0.59.0",
+    "uglify-js": "^3.17.4"
   },
   "dependencies": {
-    "opencollective-postinstall": "^2.0.2"
+    "gulp": "^4.0.2",
+    "opencollective-postinstall": "^2.0.3"
   },
   "collective": {
     "type": "opencollective",

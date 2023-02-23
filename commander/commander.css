@@ -74,6 +74,7 @@ body {
   width: 3.875rem;
   height: 5.5rem;
   background-color: #fff;
+  -webkit-border-radius: 4px;
   border-radius: 4px;
   -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
   box-shadow: 0 1px 1px rgba(0,0,0,0.15);
@@ -107,6 +108,8 @@ body {
 .card .face {
   height: 100%;
   background-position: 50% 50%;
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
@@ -114,6 +117,8 @@ body {
   position: absolute;
   background-image: url("faces/back.png");
   background-position: 50% 50%;
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
   background-size: 100% 100%;
   background-repeat: no-repeat;
   width: 100%;

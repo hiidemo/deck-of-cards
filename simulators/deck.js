@@ -997,32 +997,11 @@ var Deck = function () {
     target.removeEventListener(name, listener);
   }
 
-  function filter(target) {
-    var cards = target.cards;
-
-    target.findOne = findOne;
-    target.filter = filter;
-
-    return cards;
-
-    // filter by card id
-    function findOne(o) {
-      return cards.find(({ i }) => i === Number(o));
-    }
-
-    // filter by array of card ids. Eg: filter([20, 21])
-    function filter(a) {
-      return cards.filter(({ i }) => {
-        return a.includes(i);
-      });
-    }
-  }
-
   function Deck(jokers) {
     // init cards array
     var cards = new Array(jokers ? 54 : 52);
 
-    var $el = createElement("div");
+    var $el = createElement('div');
     var self = observable({ mount, unmount, cards, $el });
     var $root;
 
@@ -1032,23 +1011,20 @@ var Deck = function () {
     // make queueable
     queue(self);
 
-    // filter
-    filter(self);
-
     // load modules
     for (module in modules) {
       addModule(modules[module]);
     }
 
     // add class
-    $el.classList.add("deck");
+    $el.classList.add('deck');
 
     var card;
 
     // create cards
     for (var i = cards.length; i; i--) {
       card = cards[i - 1] = Card(i - 1);
-      card.setSide("back");
+      card.setSide('back');
       card.mount($el);
     }
 

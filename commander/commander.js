@@ -10,6 +10,7 @@ var translate = Deck.translate
 var $container = document.getElementById('container')
 var $topbar = document.getElementById('topbar')
 
+var $dealCommander = document.createElement('button')
 var $sort = document.createElement('button')
 var $shuffle = document.createElement('button')
 var $bysuit = document.createElement('button')
@@ -17,6 +18,7 @@ var $fan = document.createElement('button')
 var $poker = document.createElement('button')
 var $flip = document.createElement('button')
 
+$dealCommander.textContent = 'Deal Commander'
 $shuffle.textContent = 'Shuffle'
 $sort.textContent = 'Sort'
 $bysuit.textContent = 'By suit'
@@ -30,6 +32,7 @@ $topbar.appendChild($bysuit)
 $topbar.appendChild($fan)
 $topbar.appendChild($poker)
 $topbar.appendChild($sort)
+$topbar.appendChild($dealCommander)
 
 var deck = Deck()
 
@@ -38,56 +41,6 @@ var deck = Deck()
 var acesClicked = []
 var kingsClicked = []
 
-deck.cards.forEach(function (card, i) {
-  // card.enableDragging()
-  // card.enableFlipping()
-  card.enableClicking();
-
-  card.$el.addEventListener('mousedown', onTouch)
-  card.$el.addEventListener('touchstart', onTouch)
-
-  function onTouch () {
-    var card
-
-    if (i % 13 === 0) {
-      acesClicked[i] = true
-      if (acesClicked.filter(function (ace) {
-        return ace
-      }).length === 4) {
-        document.body.removeChild($topbar)
-        deck.$el.style.display = 'none'
-        setTimeout(function () {
-          startWinning()
-        }, 250)
-      }
-    } else if (i % 13 === 12) {
-      if (!kingsClicked) {
-        return
-      }
-      kingsClicked[i] = true
-      if (kingsClicked.filter(function (king) {
-        return king
-      }).length === 4) {
-        for (var j = 0; j < 3; j++) {
-          card = Deck.Card(52 + j)
-          card.mount(deck.$el)
-          card.$el.style[transform] = 'scale(0)'
-          card.setSide('front')
-          card.enableDragging()
-          card.enableFlipping()
-          deck.cards.push(card)
-        }
-        deck.sort(true)
-        kingsClicked = false
-      }
-    } else {
-      acesClicked = []
-      if (kingsClicked) {
-        kingsClicked = []
-      }
-    }
-  }
-})
 
 function startWinning () {
   var $winningDeck = document.createElement('div')
@@ -179,26 +132,66 @@ $poker.addEventListener('click', function () {
   deck.poker()
 })
 
+function fontSize() {
+  return window.getComputedStyle(document.body).getPropertyValue('font-size').slice(0, -2);
+}
+
+function SuitName (suit) {
+  // return suit name from suit value
+  return suit === 0 ? 'spades' : suit === 1 ? 'hearts' : suit === 2 ? 'clubs' : suit === 3 ? 'diamonds' : 'joker'
+}
+
+$dealCommander.addEventListener('click', function() {
+  // Select the first card
+  var card = deck.cards[0]
+  
+  // deal that card
+  card.mount($container)
+
+  // Allow to flip it
+  //card.enableFlipping()
+  //deck.flip()
+
+  card.animateTo({
+    delay: 0,
+    duration: 250,
+
+    x: Math.round(-(5 - 2.05) * 70 * fontSize() / 16),
+    y: Math.round(110 * fontSize() / 16),
+    rot: 0,
+
+    onStart: function () {
+      card.$el.style.zIndex = 7
+    },
+    onComplete: function () {
+      card.setSide('front');
+     printMessage("Command Card Selected, " + card.rank + " of " + SuitName(card.suit))
+    }
+  })
+
+
+
+})
+
 deck.mount($container)
 
 deck.intro()
-deck.sort()
-
+deck.shuffle()
+deck.shuffle()
 // secret message..
+//var randomDelay = 10000 + 30000 * Math.random()
 
-var randomDelay = 10000 + 30000 * Math.random()
+//setTimeout(function () {
+//  printMessage('Psst..I want to share a secret with you...')
+//}, randomDelay)
 
-setTimeout(function () {
-  printMessage('Psst..I want to share a secret with you...')
-}, randomDelay)
+//setTimeout(function () {
+//  printMessage('...try clicking all kings and nothing in between...')
+//}, randomDelay + 5000)
 
-setTimeout(function () {
-  printMessage('...try clicking all kings and nothing in between...')
-}, randomDelay + 5000)
-
-setTimeout(function () {
-  printMessage('...have fun ;)')
-}, randomDelay + 10000)
+//setTimeout(function () {
+//  printMessage('...have fun ;)')
+//}, randomDelay + 10000)
 
 function printMessage (text) {
   var animationFrames = Deck.animationFrames
