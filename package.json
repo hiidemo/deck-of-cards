@@ -36,10 +36,11 @@
     "nib": "^1.2.0",
     "rollup": "^3.17.2",
     "stylus": "^0.59.0",
+    "typescript": "^4.9.5",
     "uglify-js": "^3.17.4"
   },
   "dependencies": {
-    "gulp": "^4.0.2",
+    "gulp": "^3.9.1",
     "opencollective-postinstall": "^2.0.3"
   },
   "collective": {
