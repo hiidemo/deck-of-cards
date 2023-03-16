@@ -82,9 +82,9 @@ var Deck = function () {
   }
 
   // fallback
-  window.requestAnimationFrame || (window.requestAnimationFrame = function (cb) {
+  typeof window !== 'undefined' && (window.requestAnimationFrame || (window.requestAnimationFrame = function (cb) {
     setTimeout(cb, 0);
-  });
+  }));
 
   var ease = {
     linear: function (t) {
